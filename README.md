@@ -1,6 +1,6 @@
 # Self-Service!
 
-Plataforma para procura e divulgação de prestadores de serviços.
+Plataforma para divulgação e contratação de prestadores de serviços.
 
 
 
