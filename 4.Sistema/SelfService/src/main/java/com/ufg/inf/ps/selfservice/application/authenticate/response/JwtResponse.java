@@ -1,4 +1,4 @@
-package com.ufg.inf.ps.selfservice.application.authentication.response;
+package com.ufg.inf.ps.selfservice.application.authenticate.response;
 
 import java.io.Serializable;
 

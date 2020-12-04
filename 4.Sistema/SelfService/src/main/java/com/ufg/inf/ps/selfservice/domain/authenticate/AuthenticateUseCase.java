@@ -1,6 +1,6 @@
-package com.ufg.inf.ps.selfservice.domain.authentication;
+package com.ufg.inf.ps.selfservice.domain.authenticate;
 
-import com.ufg.inf.ps.selfservice.application.authentication.command.LoginCommand;
+import com.ufg.inf.ps.selfservice.application.authenticate.command.LoginCommand;
 import com.ufg.inf.ps.selfservice.infra.security.JwtTokenProvider;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;

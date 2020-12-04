@@ -1,4 +1,4 @@
-package com.ufg.inf.ps.selfservice.application.authentication.command;
+package com.ufg.inf.ps.selfservice.application.authenticate.command;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

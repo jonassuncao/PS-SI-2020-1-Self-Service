@@ -8,7 +8,7 @@ import org.springframework.security.authentication.LockedException;
  */
 public final class UserDetailsChecker {
 
-  public static <T extends UserIdentity> void check(T user) {
+  public static <T extends Credential> void check(T user) {
     if (!user.isActive()) {
       throw new DisabledException(user.getUsername());
     }

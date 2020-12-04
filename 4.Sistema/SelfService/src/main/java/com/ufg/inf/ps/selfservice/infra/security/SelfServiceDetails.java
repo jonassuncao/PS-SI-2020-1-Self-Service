@@ -17,7 +17,7 @@ public class SelfServiceDetails extends User implements Identity {
   private final UUID userId;
   private final String username;
 
-  public SelfServiceDetails(UserIdentity user, Collection<? extends GrantedAuthority> authorities) {
+  public SelfServiceDetails(Credential user, Collection<? extends GrantedAuthority> authorities) {
     super(String.valueOf(user.getUserId()), user.getPassword(), authorities);
     userId = user.getUserId();
     username = user.getUsername();

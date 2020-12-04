@@ -1,7 +1,7 @@
-package com.ufg.inf.ps.selfservice.application.authentication;
+package com.ufg.inf.ps.selfservice.application.authenticate;
 
-import com.ufg.inf.ps.selfservice.application.authentication.command.LoginCommand;
-import com.ufg.inf.ps.selfservice.domain.authentication.AuthenticateUseCase;
+import com.ufg.inf.ps.selfservice.application.authenticate.command.LoginCommand;
+import com.ufg.inf.ps.selfservice.domain.authenticate.AuthenticateUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;

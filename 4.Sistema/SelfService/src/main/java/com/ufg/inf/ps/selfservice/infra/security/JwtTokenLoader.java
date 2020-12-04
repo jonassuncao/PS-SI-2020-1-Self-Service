@@ -19,7 +19,7 @@ public class JwtTokenLoader {
 
   public Authentication authentication(String token) {
     Claims claims = tokenClaims(token);
-    UserIdentity user = userIdentity(claims);
+    Credential user = userIdentity(claims);
     Collection<GrantedAuthority> authorities = authorities(claims);
     SelfServiceDetails userDetails = new SelfServiceDetails(user, authorities);
     return new UsernamePasswordAuthenticationToken(userDetails, token, authorities);
@@ -34,13 +34,13 @@ public class JwtTokenLoader {
     return AuthorityUtils.commaSeparatedStringToAuthorityList(authorities);
   }
 
-  private UserIdentity userIdentity(Claims claims) {
-    UserIdentity user = user(claims.getSubject());
+  private Credential userIdentity(Claims claims) {
+    Credential user = user(claims.getSubject());
     UserDetailsChecker.check(user);
     return user;
   }
 
-  private UserIdentity user(String subject) {
+  private Credential user(String subject) {
 //    return userProvider.findById(UUID.fromString(subject)).orElseThrow(SecurityFunctions.notAutenthicated());
     return null;
   }

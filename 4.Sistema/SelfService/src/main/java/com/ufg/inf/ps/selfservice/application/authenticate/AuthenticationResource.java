@@ -1,7 +1,7 @@
-package com.ufg.inf.ps.selfservice.application.authentication;
+package com.ufg.inf.ps.selfservice.application.authenticate;
 
-import com.ufg.inf.ps.selfservice.application.authentication.command.LoginCommand;
-import com.ufg.inf.ps.selfservice.application.authentication.response.JwtResponse;
+import com.ufg.inf.ps.selfservice.application.authenticate.command.LoginCommand;
+import com.ufg.inf.ps.selfservice.application.authenticate.response.JwtResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
