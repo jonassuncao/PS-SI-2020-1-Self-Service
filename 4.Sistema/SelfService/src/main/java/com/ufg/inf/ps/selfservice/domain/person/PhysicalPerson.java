@@ -9,7 +9,7 @@ import javax.persistence.Entity;
  */
 @Entity
 @DiscriminatorValue("PHYSICAL_PERSON")
-public class PhysicalPerson extends Client {
+public class PhysicalPerson extends SelfServiceClient {
 
   private static final long serialVersionUID = 1L;
 

@@ -1,24 +1,28 @@
 package com.ufg.inf.ps.selfservice.domain.person;
 
-import com.ufg.inf.ps.selfservice.infra.commons.Identification;
 import com.ufg.inf.ps.selfservice.infra.security.Credential;
-import org.hibernate.annotations.Type;
 
+import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorValue;
-import javax.persistence.MappedSuperclass;
-import java.util.HashMap;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.util.UUID;
 
 /**
  * @author jonathas.assuncao on 04/12/2020
  * @project SelfService
  */
-@MappedSuperclass
+@Entity
 @DiscriminatorColumn(name = "type")
-public abstract class Client extends Identification implements Credential {
+@DiscriminatorValue("OCCURRENCE")
+public class SelfServiceClient implements Credential {
 
   private static final long serialVersionUID = 1L;
+
+  @Id
+  @Column(name = "id", updatable = false, nullable = false, unique = true)
+  private UUID id;
 
   private String username;
   private boolean active;
@@ -29,10 +33,8 @@ public abstract class Client extends Identification implements Credential {
   private String name;
   private String address;
   private String document;
-  @Type(type = "jsonb")
-  private HashMap<String, String> wayPayments;
 
-  Client() {
+  SelfServiceClient() {
     super();
   }
 
@@ -84,20 +86,12 @@ public abstract class Client extends Identification implements Credential {
     this.address = address;
   }
 
-  String getDocument(){
+  String getDocument() {
     return document;
   }
 
-  void setDocument(String document){
+  void setDocument(String document) {
     this.document = document;
-  }
-
-  public HashMap<String, String> getWayPayments() {
-    return wayPayments;
-  }
-
-  void setWayPayments(HashMap<String, String> wayPayments) {
-    this.wayPayments = wayPayments;
   }
 
   @Override
@@ -122,6 +116,6 @@ public abstract class Client extends Identification implements Credential {
 
   @Override
   public UUID getUserId() {
-    return getId();
+    return id;
   }
 }

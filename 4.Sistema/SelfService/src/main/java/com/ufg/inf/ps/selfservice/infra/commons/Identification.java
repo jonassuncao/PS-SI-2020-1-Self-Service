@@ -2,7 +2,6 @@ package com.ufg.inf.ps.selfservice.infra.commons;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.apache.commons.lang3.Validate;
-import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.springframework.data.annotation.Id;
 import org.springframework.lang.Nullable;
 
@@ -27,6 +26,10 @@ public class Identification implements Serializable {
   @JsonProperty
   public UUID getId() {
     return id;
+  }
+
+  protected Identification() {
+    super();
   }
 
   protected final void initialize() {
