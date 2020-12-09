@@ -1,7 +1,9 @@
 package com.ufg.inf.ps.selfservice.infra.security;
 
+import com.ufg.inf.ps.selfservice.domain.person.SelfServiceClientRepository;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -9,6 +11,7 @@ import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.stereotype.Component;
 
 import java.util.Collection;
+import java.util.UUID;
 
 /**
  * @author jonathas.assuncao on 03/12/2020
@@ -16,6 +19,9 @@ import java.util.Collection;
  */
 @Component
 public class JwtTokenLoader {
+
+  @Autowired
+  private SelfServiceClientRepository selfServiceClientRepository;
 
   public Authentication authentication(String token) {
     Claims claims = tokenClaims(token);
@@ -41,7 +47,6 @@ public class JwtTokenLoader {
   }
 
   private Credential user(String subject) {
-//    return userProvider.findById(UUID.fromString(subject)).orElseThrow(SecurityFunctions.notAutenthicated());
-    return null;
+    return selfServiceClientRepository.findById(UUID.fromString(subject)).orElseThrow(SecurityFunctions.notAutenthicated());
   }
 }

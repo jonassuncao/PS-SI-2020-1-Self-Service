@@ -11,6 +11,7 @@ public enum I18nCommon implements I18nKey {
   ERROR_UNAUTHORIZED("error.unauthorized"),
   TOKEN_EXPIRED("token.expired"),
   TOKEN_INVALID("token.invalid"),
+  BAD_CREDENTIALS("bad.credentials"),
   // HTTP
   HTTP_OK("http.ok"),
   ;

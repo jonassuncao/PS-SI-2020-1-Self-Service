@@ -1,12 +1,10 @@
 package com.ufg.inf.ps.selfservice.domain.person;
 
+import com.ufg.inf.ps.selfservice.infra.commons.Identification;
 import com.ufg.inf.ps.selfservice.infra.security.Credential;
 
-import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
-import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import java.util.UUID;
 
 /**
@@ -15,14 +13,9 @@ import java.util.UUID;
  */
 @Entity
 @DiscriminatorColumn(name = "type")
-@DiscriminatorValue("OCCURRENCE")
-public class SelfServiceClient implements Credential {
+public abstract class SelfServiceClient extends Identification implements Credential {
 
   private static final long serialVersionUID = 1L;
-
-  @Id
-  @Column(name = "id", updatable = false, nullable = false, unique = true)
-  private UUID id;
 
   private String username;
   private boolean active;
@@ -116,6 +109,6 @@ public class SelfServiceClient implements Credential {
 
   @Override
   public UUID getUserId() {
-    return id;
+    return getId();
   }
 }

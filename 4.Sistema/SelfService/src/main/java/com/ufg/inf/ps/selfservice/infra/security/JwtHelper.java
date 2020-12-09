@@ -5,12 +5,14 @@ import com.ufg.inf.ps.selfservice.infra.exception.ExceptionResolver;
 import com.ufg.inf.ps.selfservice.infra.exception.Error;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 import java.util.function.Supplier;
 
@@ -24,15 +26,17 @@ class JwtHelper {
   private final ObjectMapper objectMapper;
   private final ExceptionResolver exceptionResolver;
 
-  public JwtHelper(ExceptionResolver errorRsolver, ObjectMapper objectMapper) {
+  public JwtHelper(ExceptionResolver errorResolver, ObjectMapper objectMapper) {
     this.objectMapper = objectMapper;
-    this.exceptionResolver = errorRsolver;
+    this.exceptionResolver = errorResolver;
   }
 
   public void loadError(HttpServletResponse res, Exception ex) throws IOException {
     ResponseEntity<Error> response = exceptionResolver.resolve(ex);
     String errorJson = objectMapper.writeValueAsString(response.getBody());
     res.setStatus(response.getStatusCodeValue());
+    res.setContentType(MediaType.APPLICATION_JSON_VALUE);
+    res.setCharacterEncoding(StandardCharsets.UTF_8.name());
     res.getWriter().print(errorJson);
   }
 

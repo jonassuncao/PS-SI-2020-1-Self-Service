@@ -12,21 +12,6 @@ import java.util.Optional;
  * @project SelfService
  */
 public class ParamExtractor {
-  private final String requestParam;
-  private final String headerParam;
-
-  public ParamExtractor(String requestParam, String headerParam) {
-    this.requestParam = requestParam;
-    this.headerParam = headerParam;
-  }
-
-  public Optional<String> get(NativeWebRequest request) {
-    return ParamExtractor.param(request, requestParam).or(() -> ParamExtractor.header(request, headerParam));
-  }
-
-  public Optional<String> get(HttpServletRequest request) {
-    return this.get(new DispatcherServletWebRequest(request));
-  }
 
   public static Optional<String> param(NativeWebRequest request, String requestParam) {
     if (WebUtils.containsParam(request, requestParam)) {

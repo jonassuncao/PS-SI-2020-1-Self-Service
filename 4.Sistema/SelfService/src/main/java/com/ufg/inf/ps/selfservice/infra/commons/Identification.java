@@ -1,14 +1,11 @@
 package com.ufg.inf.ps.selfservice.infra.commons;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import org.apache.commons.lang3.Validate;
-import org.springframework.data.annotation.Id;
-import org.springframework.lang.Nullable;
-
 import javax.persistence.Column;
+import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.UUID;
 
 /**
@@ -16,32 +13,31 @@ import java.util.UUID;
  * @project SelfService
  */
 @MappedSuperclass
-public class Identification implements Serializable {
+public abstract class Identification implements Serializable {
+
   private static final long serialVersionUID = 1L;
 
   @Id
-  @Column(name = "id", updatable = false)
+  @Column(name = "id", updatable = false, nullable = false, unique = true)
   private UUID id;
 
-  @JsonProperty
+  protected Identification() {
+  }
+
+  protected Identification(UUID id) {
+    setId(id);
+  }
+
+  protected void initialize() {
+    setId(UUID.randomUUID());
+  }
+
   public UUID getId() {
     return id;
   }
 
-  protected Identification() {
-    super();
-  }
-
-  protected final void initialize() {
-    id = UUID.randomUUID();
-  }
-
-  protected void setId(UUID id) {
-    this.id = Validate.notNull(id, "Invalid DomainEntity ID");
-  }
-
-  public boolean isSameId(@Nullable UUID id) {
-    return Objects.equals(this.id, id);
+  public void setId(UUID id) {
+    Optional.ofNullable(id).ifPresent(i -> this.id = i);
   }
 
   @Override

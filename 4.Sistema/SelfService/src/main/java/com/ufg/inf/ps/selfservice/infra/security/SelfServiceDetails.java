@@ -18,7 +18,7 @@ public class SelfServiceDetails extends User implements Identity {
   private final String username;
 
   public SelfServiceDetails(Credential user, Collection<? extends GrantedAuthority> authorities) {
-    super(String.valueOf(user.getUserId()), user.getPassword(), authorities);
+    super(user.getUsername(), user.getPassword(), authorities);
     userId = user.getUserId();
     username = user.getUsername();
   }

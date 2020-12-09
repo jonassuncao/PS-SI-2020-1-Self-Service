@@ -1,7 +1,7 @@
 package com.ufg.inf.ps.selfservice.domain.authenticate;
 
 import com.ufg.inf.ps.selfservice.domain.person.SelfServiceClient;
-import com.ufg.inf.ps.selfservice.domain.person.SelfServiceClientStore;
+import com.ufg.inf.ps.selfservice.domain.person.SelfServiceClientRepository;
 import com.ufg.inf.ps.selfservice.infra.security.SecurityFunctions;
 import com.ufg.inf.ps.selfservice.infra.security.SelfServiceDetails;
 import com.ufg.inf.ps.selfservice.infra.security.UserDetailsChecker;
@@ -18,9 +18,9 @@ import java.util.Collections;
 @Component("userDetailsService")
 public class SelfServiceDetailService implements UserDetailsService {
 
-  private final SelfServiceClientStore selfServiceClientStore;
+  private final SelfServiceClientRepository selfServiceClientStore;
 
-  public SelfServiceDetailService(SelfServiceClientStore clientRepository) {
+  public SelfServiceDetailService(SelfServiceClientRepository clientRepository) {
     this.selfServiceClientStore = clientRepository;
   }
 

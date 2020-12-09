@@ -29,6 +29,7 @@ public class ErrorFactory {
 
   ErrorFactory() {
     builders.add(new InvalidDataAccessApiUsageErrorBuilder());
+    builders.add(new BadCredentialsExceptionErrorBuilder());
     builders.add(new IllegalArgumentExceptionErrorBuilder());
     builders.add(new BindExceptionErrorBuilder());
     builders.add(new JwtExceptionErrorBuilder());
