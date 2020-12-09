@@ -28,6 +28,9 @@ public class ErrorFactory {
   private final Set<ErrorResponseBuilder<?>> builders = new LinkedHashSet<>();
 
   ErrorFactory() {
+    builders.add(new InternalAuthenticationServiceExceptionBuilder());
+    builders.add(new LockedExceptionErrorBuilder());
+    builders.add(new DisabledExceptionErrorBuilder());
     builders.add(new InvalidDataAccessApiUsageErrorBuilder());
     builders.add(new BadCredentialsExceptionErrorBuilder());
     builders.add(new IllegalArgumentExceptionErrorBuilder());

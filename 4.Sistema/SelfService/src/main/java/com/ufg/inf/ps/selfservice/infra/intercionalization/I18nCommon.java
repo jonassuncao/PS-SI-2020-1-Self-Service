@@ -12,6 +12,9 @@ public enum I18nCommon implements I18nKey {
   TOKEN_EXPIRED("token.expired"),
   TOKEN_INVALID("token.invalid"),
   BAD_CREDENTIALS("bad.credentials"),
+  INVALID_AUTHENTICATION("invalid.authentication"),
+  LOCKED_USER("locked.user"),
+  DISABLED_USER("disabled.user"),
   // HTTP
   HTTP_OK("http.ok"),
   ;
