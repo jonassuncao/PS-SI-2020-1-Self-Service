@@ -4,6 +4,7 @@ package com.ufg.inf.ps.selfservice.infra.exception.errorbuilder;
 import com.ufg.inf.ps.selfservice.infra.exception.Error;
 import com.ufg.inf.ps.selfservice.infra.exception.ErrorCode;
 import com.ufg.inf.ps.selfservice.infra.exception.ErrorResponseBuilder;
+import com.ufg.inf.ps.selfservice.infra.intercionalization.I18nCommon;
 import com.ufg.inf.ps.selfservice.infra.intercionalization.MessageBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +17,7 @@ public final class IllegalArgumentExceptionErrorBuilder implements ErrorResponse
 
   @Override
   public ResponseEntity<Error> build(IllegalArgumentException exception, MessageBuilder messageBuilder) {
-    String message = messageBuilder.message(exception.getMessage());
+    String message = messageBuilder.message(I18nCommon.INVALID_OPERATION);
     Error error = new Error(ErrorCode.INVALID_OPERATION, message);
     return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
   }
