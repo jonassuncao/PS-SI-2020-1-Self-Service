@@ -27,13 +27,43 @@
             <column name="name" type="varchar(200)"/>
             <column name="address" type="text"/>
             <column name="document" type="varchar(100)"/>
-            <column name="way_payments" type="jsonb" defaultValueComputed="'[]'::jsonb">
-                <constraints nullable="false"/>
-            </column>
+            <column name="way_payments" type="json" />
             <column name="business_address" type="text"/>
             <column name="municipal_registration" type="varchar(100)"/>
             <column name="status" type="varchar(20)"/>
-            <column name="type" type="varchar(30)" />
+            <column name="type" type="varchar(30)"/>
         </createTable>
+    </changeSet>
+
+    <changeSet id="insert-clients" author="jonathas.assuncao">
+        <insert tableName="self_service_client">
+            <column name="id" value="9db94c03-ac62-4ef5-a84d-b2056d6cecc6"></column>
+            <column name="username" value="cliente@email.com"></column>
+            <column name="active" value="true"></column>
+            <column name="blocked" value="false"></column>
+            <!-- Pass: @email.com -->
+            <column name="password" value="$2a$10$ingarTv7aHGqI3ADqbVcb.HQFcXPcegLt5HGJTBrogwHF6z2HZTU2"></column>
+            <column name="nickname" value="Cliente"></column>
+            <column name="name" value="Cliente"></column>
+            <column name="address" value="Rua Pontal do Paraná, 928, Floresta, 85814-817, Cascavel-PR"></column>
+            <column name="document" value="32136239112"></column>
+            <column name="type" value="PHYSICAL_PERSON"></column>
+        </insert>
+        <insert tableName="self_service_client">
+            <column name="id" value="ce6a6011-80a2-49e0-826a-4fdaab789a81"></column>
+            <column name="username" value="fornecedor@email.com"></column>
+            <column name="active" value="true"></column>
+            <column name="blocked" value="false"></column>
+            <!-- Pass: @email.com -->
+            <column name="password" value="$2a$10$ingarTv7aHGqI3ADqbVcb.HQFcXPcegLt5HGJTBrogwHF6z2HZTU2"></column>
+            <column name="nickname" value="Fornecedor"></column>
+            <column name="name" value="Fornecedor"></column>
+            <column name="address" value="Rua Jurubatuba, 745, Vila Pires, 09195-690,São Paulo-SP"></column>
+            <column name="document" value="02539802000108"></column>
+            <column name="business_address" value="Rua Jurubatuba, 745, Vila Pires, 09195-690,São Paulo-SP"></column>
+            <column name="municipal_registration" value="120894258626"></column>
+            <column name="status" value="VALID"></column>
+            <column name="type" value="COMPANY_SUPPLIER"></column>
+        </insert>
     </changeSet>
 </databaseChangeLog>

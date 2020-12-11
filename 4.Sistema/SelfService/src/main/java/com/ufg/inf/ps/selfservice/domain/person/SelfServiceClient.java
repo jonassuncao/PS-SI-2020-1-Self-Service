@@ -2,9 +2,13 @@ package com.ufg.inf.ps.selfservice.domain.person;
 
 import com.ufg.inf.ps.selfservice.infra.commons.Identification;
 import com.ufg.inf.ps.selfservice.infra.security.Credential;
+import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
 
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
+import java.util.HashMap;
 import java.util.UUID;
 
 /**
@@ -13,6 +17,7 @@ import java.util.UUID;
  */
 @Entity
 @DiscriminatorColumn(name = "type")
+@TypeDef(name = "jsonb", typeClass = JsonBinaryType.class)
 public abstract class SelfServiceClient extends Identification implements Credential {
 
   private static final long serialVersionUID = 1L;
@@ -25,6 +30,8 @@ public abstract class SelfServiceClient extends Identification implements Creden
   private String nickname;
   private String name;
   private String address;
+  @Type(type = "jsonb")
+  private HashMap<String, Object> wayPayments = new HashMap<>();
   private String document;
 
   SelfServiceClient() {
@@ -87,6 +94,14 @@ public abstract class SelfServiceClient extends Identification implements Creden
     this.document = document;
   }
 
+  public HashMap<String, Object> getWayPayments() {
+    return wayPayments;
+  }
+
+  void setWayPayments(HashMap<String, Object> wayPayments) {
+    this.wayPayments = wayPayments;
+  }
+
   @Override
   public String getUsername() {
     return username;
@@ -111,4 +126,6 @@ public abstract class SelfServiceClient extends Identification implements Creden
   public UUID getUserId() {
     return getId();
   }
+
+
 }
