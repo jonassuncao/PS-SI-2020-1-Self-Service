@@ -10,7 +10,7 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
     <changeSet id="create-table-client" author="jonathas.assuncao">
-        <createTable tableName="self_service_client">
+        <createTable tableName="client">
             <column name="id" type="uuid">
                 <constraints primaryKey="true"/>
             </column>
@@ -36,7 +36,7 @@
     </changeSet>
 
     <changeSet id="insert-clients" author="jonathas.assuncao">
-        <insert tableName="self_service_client">
+        <insert tableName="client">
             <column name="id" value="9db94c03-ac62-4ef5-a84d-b2056d6cecc6"></column>
             <column name="username" value="cliente@email.com"></column>
             <column name="active" value="true"></column>
@@ -49,7 +49,7 @@
             <column name="document" value="32136239112"></column>
             <column name="type" value="PHYSICAL_PERSON"></column>
         </insert>
-        <insert tableName="self_service_client">
+        <insert tableName="client">
             <column name="id" value="ce6a6011-80a2-49e0-826a-4fdaab789a81"></column>
             <column name="username" value="fornecedor@email.com"></column>
             <column name="active" value="true"></column>

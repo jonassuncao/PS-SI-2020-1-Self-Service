@@ -1,4 +1,4 @@
-package com.ufg.inf.ps.selfservice.domain.person;
+package com.ufg.inf.ps.selfservice.domain.client;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -11,8 +11,9 @@ import java.util.UUID;
  * @project SelfService
  */
 @Repository
-public interface SelfServiceClientRepository extends JpaRepository<SelfServiceClient, UUID> {
+public interface ClientRepository extends JpaRepository<Client, UUID> {
 
-  Optional<? extends SelfServiceClient> findByUsername(String username);
+  Optional<? extends Client> findByUsername(String username);
 
+  boolean existsByUsernameIgnoreCase(String username);
 }

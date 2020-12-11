@@ -35,7 +35,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   public void configure(WebSecurity web) throws Exception {
     web.ignoring()
         .antMatchers("/api/authentication")
-        .antMatchers("/api/register")
+        .antMatchers(HttpMethod.POST, "/api/clients")
         .antMatchers("/swagger-ui/**")
         .antMatchers(HttpMethod.OPTIONS, "/**")
         .antMatchers("/static/**");
@@ -63,7 +63,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
   @Autowired
   public void configureGlobal(AuthenticationManagerBuilder builder) throws Exception {
-    builder.userDetailsService(userDetailsService).passwordEncoder(new BCryptPasswordEncoder());
+    builder.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+  }
+
+  @Bean
+  public BCryptPasswordEncoder passwordEncoder() {
+    return new BCryptPasswordEncoder();
   }
 
   @Override

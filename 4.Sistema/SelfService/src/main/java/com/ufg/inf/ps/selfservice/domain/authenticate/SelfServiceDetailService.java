@@ -1,7 +1,7 @@
 package com.ufg.inf.ps.selfservice.domain.authenticate;
 
-import com.ufg.inf.ps.selfservice.domain.person.SelfServiceClient;
-import com.ufg.inf.ps.selfservice.domain.person.SelfServiceClientRepository;
+import com.ufg.inf.ps.selfservice.domain.client.Client;
+import com.ufg.inf.ps.selfservice.domain.client.ClientRepository;
 import com.ufg.inf.ps.selfservice.infra.security.SecurityFunctions;
 import com.ufg.inf.ps.selfservice.infra.security.SelfServiceDetails;
 import com.ufg.inf.ps.selfservice.infra.security.UserDetailsChecker;
@@ -18,20 +18,20 @@ import java.util.Collections;
 @Component("userDetailsService")
 public class SelfServiceDetailService implements UserDetailsService {
 
-  private final SelfServiceClientRepository selfServiceClientStore;
+  private final ClientRepository selfServiceClientStore;
 
-  public SelfServiceDetailService(SelfServiceClientRepository clientRepository) {
+  public SelfServiceDetailService(ClientRepository clientRepository) {
     this.selfServiceClientStore = clientRepository;
   }
 
   @Override
   public UserDetails loadUserByUsername(final String username) {
-    SelfServiceClient user = getUser(username);
+    Client user = getUser(username);
     UserDetailsChecker.check(user);
     return new SelfServiceDetails(user, Collections.emptyList());
   }
 
-  private SelfServiceClient getUser(String username) {
+  private Client getUser(String username) {
     return selfServiceClientStore.findByUsername(username).orElseThrow(SecurityFunctions.notFound(username));
   }
 

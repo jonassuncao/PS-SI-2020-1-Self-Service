@@ -1,6 +1,6 @@
 package com.ufg.inf.ps.selfservice.infra.security;
 
-import com.ufg.inf.ps.selfservice.domain.person.SelfServiceClientRepository;
+import com.ufg.inf.ps.selfservice.domain.client.ClientRepository;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,7 @@ import java.util.UUID;
 public class JwtTokenLoader {
 
   @Autowired
-  private SelfServiceClientRepository selfServiceClientRepository;
+  private ClientRepository selfServiceClientRepository;
 
   public Authentication authentication(String token) {
     Claims claims = tokenClaims(token);

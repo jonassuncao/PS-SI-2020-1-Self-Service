@@ -20,7 +20,6 @@ import javax.validation.Valid;
 @RequestMapping("/api/authentication")
 public class AuthenticationResource {
 
-
   @Autowired
   private AuthenticateApplicationService authenticationApplicationSerice;
 

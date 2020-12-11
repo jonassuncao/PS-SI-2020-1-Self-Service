@@ -1,6 +1,9 @@
-package com.ufg.inf.ps.selfservice.domain.person;
+package com.ufg.inf.ps.selfservice.domain.client;
 
+import com.ufg.inf.ps.selfservice.application.client.ClientData;
+import com.ufg.inf.ps.selfservice.infra.commons.Checker;
 import com.ufg.inf.ps.selfservice.infra.commons.Identification;
+import com.ufg.inf.ps.selfservice.infra.intercionalization.I18nClient;
 import com.ufg.inf.ps.selfservice.infra.security.Credential;
 import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
 import org.hibernate.annotations.Type;
@@ -18,7 +21,7 @@ import java.util.UUID;
 @Entity
 @DiscriminatorColumn(name = "type")
 @TypeDef(name = "jsonb", typeClass = JsonBinaryType.class)
-public abstract class SelfServiceClient extends Identification implements Credential {
+public abstract class Client extends Identification implements Credential {
 
   private static final long serialVersionUID = 1L;
 
@@ -34,12 +37,24 @@ public abstract class SelfServiceClient extends Identification implements Creden
   private HashMap<String, Object> wayPayments = new HashMap<>();
   private String document;
 
-  SelfServiceClient() {
+  Client() {
     super();
   }
 
+  Client(ClientData data) {
+    super();
+    setUsername(data.getUsername());
+    setPassword(data.getPassword());
+    data.getUrlImage().ifPresent(this::setUrlImage);
+    data.getNickname().ifPresent(this::setNickname);
+    setName(data.getName());
+    data.getAddress().ifPresent(this::setAddress);
+    setDocument(data.getDocument());
+    initialize();
+  }
+
   void setUsername(String username) {
-    this.username = username;
+    this.username = Checker.notBlankTrim(username, I18nClient.CLIENT_USERNAME_NOTBLANK);
   }
 
   void setActive(boolean active) {
@@ -51,7 +66,7 @@ public abstract class SelfServiceClient extends Identification implements Creden
   }
 
   void setPassword(String password) {
-    this.password = password;
+    this.password = Checker.notBlankTrim(password, I18nClient.CLIENT_PASSWORD_NOTBLANK);
   }
 
   public String getUrlImage() {
@@ -75,7 +90,7 @@ public abstract class SelfServiceClient extends Identification implements Creden
   }
 
   void setName(String name) {
-    this.name = name;
+    this.name = Checker.notBlankTrim(name, I18nClient.CLIENT_NAME_NOTBLANK);
   }
 
   public String getAddress() {
@@ -86,12 +101,12 @@ public abstract class SelfServiceClient extends Identification implements Creden
     this.address = address;
   }
 
-  String getDocument() {
+  public String getDocument() {
     return document;
   }
 
   void setDocument(String document) {
-    this.document = document;
+    this.document = Checker.notBlankTrim(document, I18nClient.CLIENT_DOCUMENT_NOTBLANK);
   }
 
   public HashMap<String, Object> getWayPayments() {
@@ -100,6 +115,10 @@ public abstract class SelfServiceClient extends Identification implements Creden
 
   void setWayPayments(HashMap<String, Object> wayPayments) {
     this.wayPayments = wayPayments;
+  }
+
+  void actived() {
+    active = true;
   }
 
   @Override

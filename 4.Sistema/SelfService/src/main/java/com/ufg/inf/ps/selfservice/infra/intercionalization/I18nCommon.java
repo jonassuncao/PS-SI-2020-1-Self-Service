@@ -15,13 +15,15 @@ public enum I18nCommon implements I18nKey {
   INVALID_AUTHENTICATION("invalid.authentication"),
   LOCKED_USER("locked.user"),
   DISABLED_USER("disabled.user"),
-  // HTTP
-  HTTP_OK("http.ok"),
+  // Common
+  DOCUMENT_INVALID("document.invalid"),
+  DOCUMENT_CPF_INVALID("document.cpf.invalid"),
+  DOCUMENT_CNPJ_INVALID("document.cnpj.invalid"),
   ;
 
   private final String key;
 
-  private I18nCommon(String key) {
+  I18nCommon(String key) {
     this.key = key;
   }
 
