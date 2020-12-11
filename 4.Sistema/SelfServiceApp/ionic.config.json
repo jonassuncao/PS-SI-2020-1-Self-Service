@@ -1,0 +1,7 @@
+{
+  "name": "SelfServiceApp",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
