@@ -1,0 +1,33 @@
+:host::ng-deep {
+  .login {
+    min-width: 50vw;
+
+    &__header {
+      display: grid;
+      gap: 0.5rem;
+      width: 100%;
+      justify-content: center;
+      text-align: center;
+
+      &__logo {
+        height: auto;
+        width: 5rem;
+      }
+    }
+
+    &__action {
+      margin-top: 3rem;
+      --ion-color-base: #e34f19 !important;
+    }
+
+    &__register {
+      --ion-color-base: #69565b !important;
+    }
+
+    &__divider {
+      border-bottom: 1px solid;
+      margin: 1.5rem 0;
+      opacity: 0.3;
+    }
+  }
+}

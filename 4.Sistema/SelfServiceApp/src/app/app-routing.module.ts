@@ -4,23 +4,23 @@ import { AuthGuard } from "./guards/auth.guard";
 import { LayoutModule } from "./layouts/layout.module";
 
 const routes: Routes = [
-  {
-    path: "",
-    // canActivate: [AuthGuard],
-    component: LayoutModule,
-    children: [
-      {
-        path: "",
-        redirectTo: "home",
-        pathMatch: "full",
-      },
-      {
-        path: "home",
-        loadChildren: () =>
-          import("./modules/admin/home/home.module").then((m) => m.HomeModule),
-      },
-    ],
-  },
+  // {
+  //   path: "",
+  //   // canActivate: [AuthGuard],
+  //   component: LayoutModule,
+  //   children: [
+  //     {
+  //       path: "",
+  //       redirectTo: "home",
+  //       pathMatch: "full",
+  //     },
+  //     {
+  //       path: "home",
+  //       loadChildren: () =>
+  //         import("./modules/admin/home/home.module").then((m) => m.HomeModule),
+  //     },
+  //   ],
+  // },
   {
     path: "",
     loadChildren: () =>

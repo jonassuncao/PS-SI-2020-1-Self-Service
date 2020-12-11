@@ -1,3 +1,33 @@
-<p>
-  login works!
-</p>
+<ion-card class="login">
+  <ion-card-header class="login__header">
+    <img
+      class="login__header__logo"
+      alt="Logo SelfService"
+      src="/assets/logo-img.png"
+    />
+    <h1>Entrar</h1>
+  </ion-card-header>
+
+  <ion-card-content>
+    <form>
+      <ion-item>
+        <ion-label position="floating">Usuário</ion-label>
+        <ion-input></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Senha</ion-label>
+        <ion-input></ion-input>
+      </ion-item>
+
+      <ion-button color="primary" class="login__action" expand="block">
+        Entrar
+      </ion-button>
+    </form>
+
+    <div class="login__divider"></div>
+
+    <ion-button color="secundary" class="login__register" expand="block">
+      Registrar
+    </ion-button>
+  </ion-card-content>
+</ion-card>
