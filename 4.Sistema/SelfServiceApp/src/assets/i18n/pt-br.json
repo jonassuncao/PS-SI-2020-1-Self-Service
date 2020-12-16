@@ -1,7 +1,10 @@
 {
   "access": {
     "login": {
-      "title": "Entrar"
+      "title": "Entrar",
+      "username": "Usuário",
+      "password": "Senha",
+      "register": "Registrar"
     }
   }
 }

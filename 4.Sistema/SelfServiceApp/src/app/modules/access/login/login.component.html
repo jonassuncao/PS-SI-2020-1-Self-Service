@@ -11,23 +11,27 @@
   <ion-card-content>
     <form>
       <ion-item>
-        <ion-label position="floating">Usuário</ion-label>
+        <ion-label position="floating" translate>
+          access.login.username
+        </ion-label>
         <ion-input></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label position="floating">Senha</ion-label>
+        <ion-label position="floating" translate>
+          access.login.password
+        </ion-label>
         <ion-input></ion-input>
       </ion-item>
 
       <ion-button color="primary" class="login__action" expand="block">
-        Entrar
+        {{ "access.login.title" | translate }}
       </ion-button>
     </form>
 
     <div class="login__divider"></div>
 
     <ion-button color="secundary" class="login__register" expand="block">
-      Registrar
+      {{ "access.login.register" | translate }}
     </ion-button>
   </ion-card-content>
 </ion-card>
