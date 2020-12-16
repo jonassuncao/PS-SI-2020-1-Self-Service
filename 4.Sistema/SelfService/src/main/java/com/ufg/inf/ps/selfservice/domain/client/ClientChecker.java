@@ -15,8 +15,8 @@ import java.util.regex.Pattern;
 @Component
 class ClientChecker {
 
-  private static final String REGEX_PATTERN = "^[\\w-]+(?:\\.[\\w-]+)*@(?:[\\w-]+\\.)+[a-zA-Z]{2,7}";
-  private static final Pattern PATTERN = Pattern.compile(REGEX_PATTERN, Pattern.CASE_INSENSITIVE);
+  private static final String MAIL_PATTERN = "^[\\w-]+(?:\\.[\\w-]+)*@(?:[\\w-]+\\.)+[a-zA-Z]{2,7}";
+  private static final Pattern PATTERN = Pattern.compile(MAIL_PATTERN, Pattern.CASE_INSENSITIVE);
   private static final int MIN_SIZE = 5;
   private static final int MAX_SIZE = 15;
 
@@ -35,8 +35,8 @@ class ClientChecker {
   }
 
   private boolean validPassword(String password) {
-    final boolean minSize = password.length() >= MIN_SIZE;
-    final boolean maxSize = password.length() <= MAX_SIZE;
+    final boolean minSize = StringUtils.length(password) >= MIN_SIZE;
+    final boolean maxSize = StringUtils.length(password) <= MAX_SIZE;
     return minSize && maxSize;
   }
 
