@@ -1,6 +1,7 @@
 import { NgModule, Optional, SkipSelf } from "@angular/core";
 import { ApiService } from "./api.service";
 import { AuthService } from "./auth.service";
+import { ErrorService } from "./error.service";
 import { I18nService } from "./i18n.service";
 import { LoginService } from "./login.service";
 import { PagerQueryService } from "./pager-query.service";
@@ -18,6 +19,7 @@ import { ValidationTranslateService } from "./validation-translate.service";
     LoginService,
     AuthService,
     ApiService,
+    ErrorService,
     TokenStorageService,
   ],
 })

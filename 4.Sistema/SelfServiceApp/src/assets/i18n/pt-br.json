@@ -14,6 +14,45 @@
       "minlength": "Informe pelo menos {{ requiredLength }} caracteres",
       "invalidFields": "Existem campos inválidos",
       "notAuthenticated": "Não autenticado"
+    },
+    "messages": {
+      "authExpired": "Autenticação expirada"
     }
+  },
+  "error": {
+    "accessDenied": "Acesso negado",
+    "argument": {
+      "invalid": "Argumento '{{0}}' não é válido"
+    },
+    "authentication": "Autenticação negada",
+    "checkConnection": "Verifique sua conexão com a internet.",
+    "code": {
+      "invalid": "Código inválido",
+      "invlaid": ""
+    },
+    "communication": "Erro de comunicação com o servidor.",
+    "contractor": {
+      "invalid": "Contratante inválido"
+    },
+    "form": {
+      "validation": "Informe todos os campos obrigatórios"
+    },
+    "internal": "Erro interno no servidor",
+    "invalidOperation": "Operação inválida",
+    "login": {
+      "checkCredentials": "Verifique suas credenciais",
+      "failure": "Login inválido"
+    },
+    "name": {
+      "invalid": "Nome inválido"
+    },
+    "number": {
+      "invalid": "Número '{{0}}' inválido"
+    },
+    "parameter": {
+      "invalid": "Parâmetro: {{0}}=\"{{1}}\" não é válido"
+    },
+    "unexpected": "Erro inesperado",
+    "validation": "Erro de validação"
   }
 }

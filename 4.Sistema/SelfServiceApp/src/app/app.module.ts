@@ -18,6 +18,7 @@ import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { AuthGuard } from "./guards/auth.guard";
+import { httpInterceptorProviders } from "./interceptors";
 import { SelfServiceServiceModule } from "./services/self-service-service.module";
 import { SelfServiceMissingTranslationHandler } from "./services/selfservice-missing-translation-handler";
 import { SharedModule } from "./shared/shared.module";
@@ -56,6 +57,7 @@ registerLocaleData(localePt);
     AuthGuard,
     StatusBar,
     SplashScreen,
+    httpInterceptorProviders,
     {
       provide: LOCALE_ID,
       useFactory: (translate: TranslateService) =>

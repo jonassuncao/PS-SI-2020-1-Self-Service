@@ -7,8 +7,8 @@ import org.springframework.http.HttpHeaders;
  */
 public final class HeaderMessageBuilder {
 
-  public static final String X_ALERT = "X-alert";
-  public static final String X_PARAMS = "X-params";
+  public static final String X_ALERT = "x-alert";
+  public static final String X_PARAMS = "x-params";
 
   HeaderMessageBuilder() {
     super();

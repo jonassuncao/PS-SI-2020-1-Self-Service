@@ -30,7 +30,6 @@ export class PrincipalService {
   public identify(force: boolean = false): Observable<Account> {
     if (force || !this.client.getValue()) {
       if (this.authService.hasToken()) {
-        console.log("tem token");
         return this.load();
       }
     }

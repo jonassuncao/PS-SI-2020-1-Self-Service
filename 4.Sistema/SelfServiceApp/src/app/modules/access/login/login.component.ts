@@ -5,7 +5,6 @@ import {
   OnInit,
 } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { ToastController } from "@ionic/angular";
 import { BehaviorSubject } from "rxjs";
 import { finalize } from "rxjs/operators";
 import { LoginCommand } from "src/app/models/commands/login.command";
@@ -28,7 +27,6 @@ export class LoginComponent implements OnInit, OnDestroy {
   constructor(
     private formBuilder: FormBuilder,
     private loginService: LoginService,
-    private toastController: ToastController,
     private tokenStorageService: TokenStorageService,
     private validationTranslateService: ValidationTranslateService
   ) {}
@@ -69,26 +67,10 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.loginService
       .login(value)
       .pipe(finalize(() => this.submitted$.next(false)))
-      .subscribe(this.redirectToHome, this.showErrorMessage);
+      .subscribe(this.redirectToHome);
   }
 
   private redirectToHome = () => {
     console.log("redirecionar");
-  };
-
-  private showErrorMessage = (value: any) => {
-    this.toastController
-      .create({
-        message: value.error.message,
-        color: "danger",
-        buttons: [
-          {
-            icon: "close",
-            role: "cancel",
-          },
-        ],
-        duration: 2000,
-      })
-      .then((res) => res.present());
   };
 }

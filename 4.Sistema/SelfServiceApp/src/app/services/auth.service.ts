@@ -59,11 +59,11 @@ export class AuthService {
   };
 
   private loadInitToken() {
-    this.loadingController
-      .create({
-        message: this.translateService.instant("global.wait"),
-      })
-      .then(this.loadStorage);
+    this.translateService
+      .get("global.wait")
+      .subscribe((message) =>
+        this.loadingController.create({ message }).then(this.loadStorage)
+      );
   }
 
   private loadStorage = (loading: HTMLIonLoadingElement) => {
