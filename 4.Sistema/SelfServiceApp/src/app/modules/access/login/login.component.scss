@@ -15,8 +15,13 @@
       }
     }
 
+    &__loading {
+      display: flex;
+      height: 1.5rem;
+      justify-content: center;
+    }
+
     &__action {
-      margin-top: 3rem;
       --ion-color-base: #e34f19 !important;
     }
 

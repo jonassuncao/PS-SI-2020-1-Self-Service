@@ -9,28 +9,59 @@
   </ion-card-header>
 
   <ion-card-content>
-    <form>
+    <form [formGroup]="form" (submit)="onSubmit(form)">
       <ion-item>
         <ion-label position="floating" translate>
           access.login.username
         </ion-label>
-        <ion-input></ion-input>
+        <ion-input
+          type="email"
+          autocomplete="off"
+          formControlName="username"
+        ></ion-input>
       </ion-item>
+      <app-label-error *ngFor="let error of errors.get('username')">
+        {{ error }}
+      </app-label-error>
       <ion-item>
         <ion-label position="floating" translate>
           access.login.password
         </ion-label>
-        <ion-input></ion-input>
-      </ion-item>
 
-      <ion-button color="primary" class="login__action" expand="block">
+        <ion-input
+          type="password"
+          autocomplete="off"
+          formControlName="password"
+          maxlength="15"
+        ></ion-input>
+      </ion-item>
+      <app-label-error *ngFor="let error of errors.get('password')">
+        {{ error }}
+      </app-label-error>
+
+      <div class="login__loading">
+        <ion-spinner [hidden]="!(submitted$ | async)" name="dots"></ion-spinner>
+      </div>
+
+      <ion-button
+        color="primary"
+        type="submit"
+        class="login__action"
+        expand="block"
+        [disabled]="submitted$ | async"
+      >
         {{ "access.login.title" | translate }}
       </ion-button>
     </form>
 
     <div class="login__divider"></div>
 
-    <ion-button color="secundary" class="login__register" expand="block">
+    <ion-button
+      color="secundary"
+      class="login__register"
+      expand="block"
+      [disabled]="submitted$ | async"
+    >
       {{ "access.login.register" | translate }}
     </ion-button>
   </ion-card-content>

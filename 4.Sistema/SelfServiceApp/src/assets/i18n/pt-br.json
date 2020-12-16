@@ -6,5 +6,12 @@
       "password": "Senha",
       "register": "Registrar"
     }
+  },
+  "global": {
+    "error": {
+      "required": "Valor obrigatório",
+      "minlength": "Informe pelo menos {{ requiredLength }} caracteres",
+      "invalidFields": "Existem campos inválidos"
+    }
   }
 }
