@@ -10,7 +10,7 @@ import { ErrorMessages } from "../shared/forms";
 export class ValidationTranslateService {
   constructor(
     private translateService: TranslateService,
-    public toastController: ToastController
+    private toastController: ToastController
   ) {}
 
   public errors(

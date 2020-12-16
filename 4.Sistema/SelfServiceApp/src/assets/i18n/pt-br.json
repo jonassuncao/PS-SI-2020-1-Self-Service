@@ -8,10 +8,12 @@
     }
   },
   "global": {
+    "wait": "Aguarde",
     "error": {
       "required": "Valor obrigatório",
       "minlength": "Informe pelo menos {{ requiredLength }} caracteres",
-      "invalidFields": "Existem campos inválidos"
+      "invalidFields": "Existem campos inválidos",
+      "notAuthenticated": "Não autenticado"
     }
   }
 }

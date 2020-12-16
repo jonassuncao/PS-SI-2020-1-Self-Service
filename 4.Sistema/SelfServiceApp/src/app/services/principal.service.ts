@@ -1,95 +1,79 @@
-// import { concat, Observable, throwError } from "rxjs";
-// import {
-//   catchError,
-//   delay,
-//   map,
-//   mergeMap,
-//   retryWhen,
-//   share,
-//   take,
-//   tap,
-// } from "rxjs/operators";
-// import { I18nService } from "./i18n.service";
+import { Injectable } from "@angular/core";
+import { BehaviorSubject, Observable, throwError } from "rxjs";
+import {
+  catchError,
+  concat,
+  delay,
+  map,
+  mergeMap,
+  retryWhen,
+  share,
+  take,
+  tap,
+} from "rxjs/operators";
+import { AuthService } from "./auth.service";
+import { ClientService } from "./client.service";
+import { TranslateService } from "@ngx-translate/core";
 
-// @Injectable({
-//   providedIn: "root",
-// })
-// export class PrincipalService {
-//   private account = new BehaviorSubject<Account>(null);
+@Injectable({
+  providedIn: "root",
+})
+export class PrincipalService {
+  private client = new BehaviorSubject<any>(null);
 
-//   constructor(
-//     private authService: AuthService,
-//     private i18nService: I18nService,
-//     private accountService: AccountService
-//   ) {}
+  constructor(
+    private authService: AuthService,
+    private clientService: ClientService,
+    private translateService: TranslateService
+  ) {}
 
-//   public hasAnyAuthority(authorities: string[]): Observable<boolean> {
-//     return this.getAccount().pipe(
-//       map((a) => (!!a ? this.hasAuths(a.authorities, authorities) : false))
-//     );
-//   }
+  public identify(force: boolean = false): Observable<Account> {
+    if (force || !this.client.getValue()) {
+      if (this.authService.hasToken()) {
+        console.log("tem token");
+        return this.load();
+      }
+    }
+    return this.getAccount();
+  }
 
-//   public hasAuthority(authority: string): Observable<boolean> {
-//     return this.getAccount().pipe(
-//       map((account) => {
-//         const auths = account.authorities;
-//         return auths && auths.indexOf(authority) !== -1;
-//       })
-//     );
-//   }
+  public isAuthenticated(): Observable<boolean> {
+    return this.identify().pipe(map((account) => !!account));
+  }
 
-//   public identify(force: boolean = false): Observable<Account> {
-//     if (force || !this.account.getValue()) {
-//       if (this.authService.hasToken()) {
-//         return this.load();
-//       }
-//     }
-//     return this.getAccount();
-//   }
+  public getAccount(): Observable<Account> {
+    return this.client.asObservable().pipe(share());
+  }
 
-//   public isAuthenticated(): Observable<boolean> {
-//     return this.identify().pipe(map((account) => !!account));
-//   }
+  public get current(): Account {
+    return this.client.getValue();
+  }
 
-//   public getAccount(): Observable<Account> {
-//     return this.account.asObservable().pipe(share());
-//   }
+  public logout() {
+    this.authService.clear();
+    this.client.next(null);
+  }
 
-//   public get currentAccount(): Account {
-//     return this.account.getValue();
-//   }
+  private load(): Observable<Account> {
+    return this.clientService.get().pipe(
+      tap(this.loadAccount),
+      retryWhen((errors) =>
+        errors.pipe(delay(2000), take(1), concat(this.onError()))
+      ),
+      catchError(() => this.onError()),
+      mergeMap(() => this.getAccount())
+    );
+  }
 
-//   public logout() {
-//     this.authService.clear();
-//     this.account.next(null);
-//   }
+  private loadAccount = (account: Account) => {
+    this.client.next(account);
+  };
 
-//   private hasAuths(auths: string[], authorities: string[]): boolean {
-//     if (auths && auths.length > 0) {
-//       for (const authority of authorities) {
-//         if (auths.indexOf(authority) !== -1) {
-//           return true;
-//         }
-//       }
-//     }
-//   }
-
-//   private load(): Observable<Account> {
-//     return this.accountService.get().pipe(
-//       tap((account) => this.loadAccount(account)),
-//       retryWhen((errors) =>
-//         errors.pipe(delay(2000), take(1), concat(this.onError()))
-//       ),
-//       catchError(() => this.onError()),
-//       mergeMap(() => this.getAccount())
-//     );
-//   }
-
-//   private loadAccount(account: Account) {
-//     this.account.next(account);
-//   }
-
-//   private onError() {
-//     return throwError("not authenticated");
-//   }
-// }
+  private onError(): Observable<never> {
+    return throwError({
+      error: {
+        message: this.translateService.instant("global.error.notAuthenticated"),
+      },
+    });
+  }
+}

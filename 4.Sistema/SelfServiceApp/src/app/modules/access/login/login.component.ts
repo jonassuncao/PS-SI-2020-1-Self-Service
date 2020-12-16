@@ -2,13 +2,15 @@ import {
   ChangeDetectionStrategy,
   Component,
   OnDestroy,
-  OnInit
+  OnInit,
 } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { ToastController } from "@ionic/angular";
 import { BehaviorSubject } from "rxjs";
 import { finalize } from "rxjs/operators";
 import { LoginCommand } from "src/app/models/commands/login.command";
 import { LoginService } from "src/app/services/login.service";
+import { TokenStorageService } from "src/app/services/token-storage.service";
 import { ValidationTranslateService } from "src/app/services/validation-translate.service";
 import { ErrorMessages } from "src/app/shared/forms";
 import { FormModel } from "../../../shared/forms/form-model";
@@ -26,6 +28,8 @@ export class LoginComponent implements OnInit, OnDestroy {
   constructor(
     private formBuilder: FormBuilder,
     private loginService: LoginService,
+    private toastController: ToastController,
+    private tokenStorageService: TokenStorageService,
     private validationTranslateService: ValidationTranslateService
   ) {}
 
@@ -55,15 +59,36 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   private get formModel(): FormModel<LoginCommand> {
     return {
-      username: [undefined, Validators.required],
-      password: [undefined, [Validators.required, Validators.minLength(5)]],
+      username: ["fornecedor@email.com", Validators.required],
+      password: ["@email.com", [Validators.required, Validators.minLength(5)]],
     };
   }
 
   private login(value: any) {
+    this.tokenStorageService.clear();
     this.loginService
       .login(value)
       .pipe(finalize(() => this.submitted$.next(false)))
-      .subscribe(console.log);
+      .subscribe(this.redirectToHome, this.showErrorMessage);
   }
+
+  private redirectToHome = () => {
+    console.log("redirecionar");
+  };
+
+  private showErrorMessage = (value: any) => {
+    this.toastController
+      .create({
+        message: value.error.message,
+        color: "danger",
+        buttons: [
+          {
+            icon: "close",
+            role: "cancel",
+          },
+        ],
+        duration: 2000,
+      })
+      .then((res) => res.present());
+  };
 }

@@ -4,15 +4,17 @@ import { AuthService } from "./auth.service";
 import { I18nService } from "./i18n.service";
 import { LoginService } from "./login.service";
 import { PagerQueryService } from "./pager-query.service";
+import { PrincipalService } from "./principal.service";
 import { TokenStorageService } from "./token-storage.service";
 import { ValidationTranslateService } from "./validation-translate.service";
 
 @NgModule({
-  // imports:[Stor],
   providers: [
     I18nService,
+    LoginService,
     PagerQueryService,
     ValidationTranslateService,
+    PrincipalService,
     LoginService,
     AuthService,
     ApiService,

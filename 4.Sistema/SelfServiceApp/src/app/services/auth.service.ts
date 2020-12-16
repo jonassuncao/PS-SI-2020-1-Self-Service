@@ -1,7 +1,9 @@
 import { Injectable } from "@angular/core";
 import { JwtHelperService } from "@auth0/angular-jwt";
-import { Observable } from "rxjs";
-import { map } from "rxjs/operators";
+import { LoadingController } from "@ionic/angular";
+import { TranslateService } from "@ngx-translate/core";
+import { Observable, of } from "rxjs";
+import { delay, finalize, map, switchMap, take } from "rxjs/operators";
 import { LoginCommand } from "../models/commands/login.command";
 import { ApiService } from "./api.service";
 import { TokenStorageService } from "./token-storage.service";
@@ -15,9 +17,11 @@ export class AuthService {
 
   constructor(
     private api: ApiService,
+    private translateService: TranslateService,
+    private loadingController: LoadingController,
     private tokenStorageService: TokenStorageService
   ) {
-    this.loadToken(this.tokenStorageService.getValue());
+    this.loadInitToken();
   }
 
   public authenticate(command: LoginCommand): Observable<string> {
@@ -44,13 +48,33 @@ export class AuthService {
   }
 
   private extractAndLoadToken = (res: any): string => {
-    const token = res.id_token;
-    this.tokenStorageService.save(token, false);
+    const token = res.token;
+    this.tokenStorageService.save(token);
     this.loadToken(token);
     return token;
   };
 
-  private loadToken(token: string) {
+  private loadToken = (token: string) => {
     this.token = token;
+  };
+
+  private loadInitToken() {
+    this.loadingController
+      .create({
+        message: this.translateService.instant("global.wait"),
+      })
+      .then(this.loadStorage);
   }
+
+  private loadStorage = (loading: HTMLIonLoadingElement) => {
+    loading.present();
+    this.tokenStorageService
+      .getValue()
+      .pipe(
+        switchMap((v) => (v ? of(v).pipe(delay(2000)) : of(v))),
+        take(1),
+        finalize(() => loading.dismiss())
+      )
+      .subscribe(this.loadToken);
+  };
 }
