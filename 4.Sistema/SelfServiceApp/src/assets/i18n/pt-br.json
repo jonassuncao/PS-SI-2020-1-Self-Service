@@ -1,4 +1,10 @@
 {
+  "menu": {
+    "profile": "Meu perfil",
+    "services": "Serviços",
+    "about": "Sobre",
+    "logoff": "Sair"
+  },
   "access": {
     "login": {
       "title": "Entrar",

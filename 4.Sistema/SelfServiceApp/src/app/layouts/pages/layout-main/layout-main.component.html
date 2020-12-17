@@ -1,4 +1,44 @@
-<div>
-  layout-main works!
-  <router-outlet></router-outlet>
-</div>
+<ion-split-pane contentId="main-content">
+  <ion-menu contentId="main-content" type="overlay">
+    <ion-content>
+      <ion-list id="inbox-list">
+        <ion-list-header>{{ user.name }}</ion-list-header>
+        <ion-note>{{ user.username }}</ion-note>
+
+        <ion-menu-toggle
+          auto-hide="false"
+          *ngFor="let p of appPages; let i = index"
+        >
+          <ion-item
+            (click)="onChangePage(i)"
+            routerDirection="root"
+            [routerLink]="[p.url]"
+            lines="none"
+            detail="false"
+            [class.selected]="isPage(i)"
+          >
+            <ion-icon
+              slot="start"
+              [ios]="p.icon + '-outline'"
+              [md]="p.icon + '-sharp'"
+            ></ion-icon>
+            <ion-label translate>{{ p.title }}</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+      </ion-list>
+    </ion-content>
+  </ion-menu>
+
+  <ion-header [translucent]="true">
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>
+        {{ folder | translate }}
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-router-outlet id="main-content"></ion-router-outlet>
+</ion-split-pane>

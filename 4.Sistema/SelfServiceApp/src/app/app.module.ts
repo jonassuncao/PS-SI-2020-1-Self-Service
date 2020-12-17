@@ -22,10 +22,12 @@ import { httpInterceptorProviders } from "./interceptors";
 import { SelfServiceServiceModule } from "./services/self-service-service.module";
 import { SelfServiceMissingTranslationHandler } from "./services/selfservice-missing-translation-handler";
 import { SharedModule } from "./shared/shared.module";
+import { LoginGuard } from "src/app/guards/login.guard";
+import { LayoutMainComponent } from "./layouts/pages/layout-main/layout-main.component";
 
 registerLocaleData(localePt);
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, LayoutMainComponent],
   entryComponents: [],
   imports: [
     BrowserModule,
@@ -55,6 +57,7 @@ registerLocaleData(localePt);
   ],
   providers: [
     AuthGuard,
+    LoginGuard,
     StatusBar,
     SplashScreen,
     httpInterceptorProviders,

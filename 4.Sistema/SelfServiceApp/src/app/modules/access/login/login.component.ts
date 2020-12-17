@@ -5,6 +5,7 @@ import {
   OnInit,
 } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { ActivatedRoute, Router } from "@angular/router";
 import { BehaviorSubject } from "rxjs";
 import { finalize } from "rxjs/operators";
 import { LoginCommand } from "src/app/models/commands/login.command";
@@ -23,13 +24,18 @@ export class LoginComponent implements OnInit, OnDestroy {
   public form: FormGroup;
   public errors: ErrorMessages;
   public submitted$ = new BehaviorSubject(false);
+  private redirect: string;
 
   constructor(
+    private router: Router,
     private formBuilder: FormBuilder,
     private loginService: LoginService,
+    private activatedRoute: ActivatedRoute,
     private tokenStorageService: TokenStorageService,
     private validationTranslateService: ValidationTranslateService
-  ) {}
+  ) {
+    this.redirect = this.activatedRoute.snapshot.queryParams.redirect;
+  }
 
   public ngOnInit() {
     this.initForm();
@@ -67,10 +73,14 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.loginService
       .login(value)
       .pipe(finalize(() => this.submitted$.next(false)))
-      .subscribe(this.redirectToHome);
+      .subscribe(this.redirectTo);
   }
 
-  private redirectToHome = () => {
-    console.log("redirecionar");
+  private redirectTo = () => {
+    if (this.redirect) {
+      this.router.navigateByUrl(this.redirect);
+    } else {
+      this.router.navigate(["home"]);
+    }
   };
 }

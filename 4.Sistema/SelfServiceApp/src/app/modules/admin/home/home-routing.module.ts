@@ -1,12 +1,14 @@
 import { NgModule } from "@angular/core";
-import { Routes, RouterModule } from "@angular/router";
-import { HomeDetailComponent } from "./pages/home-detail.component";
+import { RouterModule, Routes } from "@angular/router";
+import { AboutDetailComponent } from "./pages/about-detail/about-detail.component";
+import { ProfileDetailComponent } from "./pages/profile-detail/profile-detail.component";
+import { ServiceDetailComponent } from "./pages/service-detail/service-detail.component";
 
 const routes: Routes = [
-  {
-    path: "",
-    children: [{ path: "", component: HomeDetailComponent }],
-  },
+  { path: "", redirectTo: "profile" },
+  { path: "profile", component: ProfileDetailComponent },
+  { path: "services", component: ServiceDetailComponent },
+  { path: "about", component: AboutDetailComponent },
 ];
 
 @NgModule({

@@ -7,10 +7,15 @@ import {
   RouterStateSnapshot,
 } from "@angular/router";
 import { Observable, of } from "rxjs";
+import { catchError, tap } from "rxjs/operators";
+import { PrincipalService } from "../services/principal.service";
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private principalService: PrincipalService
+  ) {}
 
   public canActivate(
     route: ActivatedRouteSnapshot,
@@ -31,19 +36,18 @@ export class AuthGuard implements CanActivate {
   }
 
   private isLogged(url?: string): Observable<boolean> {
-    // return this.principalService.isAuthenticated().pipe(
-    //   tap((authenticated) => {
-    //     if (!authenticated) {
-    //       this.navigateToLogin(url);
-    //     }
-    //   }),
-    //   catchError(() => {
-    //     this.navigateToLogin(url);
-    //     return of(false);
-    //   })
-    // );
-    this.navigateToLogin(url);
-    return of(false);
+    console.log("askjfnm,sdnbfkmzedr");
+    return this.principalService.isAuthenticated().pipe(
+      tap((authenticated) => {
+        if (!authenticated) {
+          this.navigateToLogin(url);
+        }
+      }),
+      catchError(() => {
+        this.navigateToLogin(url);
+        return of(false);
+      })
+    );
   }
 
   private navigateToLogin(url: string) {
