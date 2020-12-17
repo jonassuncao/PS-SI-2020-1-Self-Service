@@ -63,8 +63,8 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   private get formModel(): FormModel<LoginCommand> {
     return {
-      username: ["fornecedor@email.com", Validators.required],
-      password: ["@email.com", [Validators.required, Validators.minLength(5)]],
+      username: [undefined, Validators.required],
+      password: [undefined, [Validators.required, Validators.minLength(5)]],
     };
   }
 
